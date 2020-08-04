@@ -1,6 +1,6 @@
 package com.example.drawingpen;
-
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,13 +8,19 @@ import android.graphics.Path;
 
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+
+import android.view.View;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
-public class Paper extends SurfaceView  {
+public class Paper  extends View {
     Context context;
-    private SurfaceHolder holder;
+    private Bitmap mBitmap;
+
     private Canvas canvas;
     private Paint paint;
     public Path path;
@@ -23,52 +29,67 @@ public class Paper extends SurfaceView  {
     private static final float TOLERANCE=5;
 
 
+    Map<Path,Paint> list ;
 
     public  Paper (Context context,AttributeSet attrs){
         super(context,attrs);
+        this.context=context;
+        list = new HashMap<Path,Paint>();
+        paint=new Paint();
+        path=new Path();
 
 
 
-        // Initialize ourHolder and paint objects
-        holder = getHolder();
+    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        // your Canvas will draw onto the defined Bitmap
+        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(mBitmap);
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        for(Path i:list.keySet()){
+
+            canvas.drawPath(i,list.get(i));
+
+        }
 
 
 
+    }
+
+    private void renew(){
         paint=new Paint();
         path=new Path();
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(10f);
+        paint.setStrokeWidth(5f);
 
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
 
+        paint.setColor(Color.argb(255,RED,GREEN,BLUE));
 
+        list.put(path,paint);
     }
 
-        public void Draw() {
 
-
-        if(holder.getSurface().isValid()){
-
-
-            canvas=holder.lockCanvas();
-            canvas.drawColor(Color.WHITE);
-            paint.setColor(Color.argb(255,RED,GREEN,BLUE));
-
-
-            canvas.drawPath(path,paint);
-
-            holder.unlockCanvasAndPost(canvas);
-        }
-
-    }
 
     private void startTouch(float x,float y){
+        renew();
+
+
         path.moveTo(x,y);
+
         mX=x;
         mY=y;
-        Draw();
+
+
     }
     private void moveTouch(float x,float y){
         float dx=Math.abs(x-mX);
@@ -78,18 +99,46 @@ public class Paper extends SurfaceView  {
             mX=x;
             mY=y;
         }
-        Draw();
+
     }
     private  void upTouch(){
         path.lineTo(mX,mY);
-        Draw();
+
+
+
+
+
     }
-    public void clearCanvas(){
+    public void clearAll() {
+        list.clear();
 
-
-        path.reset();
-        Draw();
         invalidate();
+
+
+    }
+
+
+    public void clear(){
+
+        Iterator<Path> it = list.keySet().iterator();
+
+        // Iterate over all the elements
+        if (it.hasNext()) {
+           it.next();
+            // Check if Value associated with Key is ODD
+
+                // Remove the element
+                it.remove();
+
+        }
+        invalidate();
+
+
+
+
+
+
+      //
 
     }
 
@@ -115,6 +164,7 @@ public class Paper extends SurfaceView  {
                 upTouch();
                 invalidate();
                 break;
+
 
         }
 
