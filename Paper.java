@@ -11,10 +11,6 @@ import android.view.MotionEvent;
 
 import android.view.View;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 public class Paper  extends View {
@@ -29,12 +25,14 @@ public class Paper  extends View {
     private static final float TOLERANCE=5;
 
 
-    Map<Path,Paint> list ;
+    ArrayList<Path> pathlist ;
+    ArrayList<Paint> paintlist ;
 
     public  Paper (Context context,AttributeSet attrs){
         super(context,attrs);
         this.context=context;
-        list = new HashMap<Path,Paint>();
+        pathlist = new ArrayList<Path>();
+        paintlist = new ArrayList<Paint>();
         paint=new Paint();
         path=new Path();
 
@@ -53,12 +51,9 @@ public class Paper  extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(Path i:list.keySet()){
-
-            canvas.drawPath(i,list.get(i));
-
-        }
-
+       for(int i=0;i<paintlist.size();i++){
+           canvas.drawPath(pathlist.get(i),paintlist.get(i));
+       }
 
 
     }
@@ -75,7 +70,8 @@ public class Paper  extends View {
 
         paint.setColor(Color.argb(255,RED,GREEN,BLUE));
 
-        list.put(path,paint);
+        pathlist.add(path);
+        paintlist.add(paint);
     }
 
 
@@ -110,7 +106,8 @@ public class Paper  extends View {
 
     }
     public void clearAll() {
-        list.clear();
+        pathlist.clear();
+        paintlist.clear();
 
         invalidate();
 
@@ -120,25 +117,12 @@ public class Paper  extends View {
 
     public void clear(){
 
-        Iterator<Path> it = list.keySet().iterator();
-
-        // Iterate over all the elements
-        if (it.hasNext()) {
-           it.next();
-            // Check if Value associated with Key is ODD
-
-                // Remove the element
-                it.remove();
-
+        if(!paintlist.isEmpty()){
+            paintlist.remove(paintlist.size()-1);
+            pathlist.remove(pathlist.size()-1);
         }
         invalidate();
 
-
-
-
-
-
-      //
 
     }
 
