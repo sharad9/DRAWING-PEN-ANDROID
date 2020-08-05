@@ -23,6 +23,8 @@ public class Paper  extends View {
     static int RED,GREEN,BLUE;
     private float mX,mY;
     private static final float TOLERANCE=5;
+    private boolean justTouch=true;
+
 
 
     ArrayList<Path> pathlist ;
@@ -35,6 +37,7 @@ public class Paper  extends View {
         paintlist = new ArrayList<Paint>();
         paint=new Paint();
         path=new Path();
+
 
 
 
@@ -53,6 +56,8 @@ public class Paper  extends View {
         super.onDraw(canvas);
        for(int i=0;i<paintlist.size();i++){
            canvas.drawPath(pathlist.get(i),paintlist.get(i));
+
+
        }
 
 
@@ -62,21 +67,23 @@ public class Paper  extends View {
         paint=new Paint();
         path=new Path();
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(5f);
+        paint.setStrokeWidth(7f);
 
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
 
         paint.setColor(Color.argb(255,RED,GREEN,BLUE));
+
 
         pathlist.add(path);
         paintlist.add(paint);
     }
 
 
+    private void startTouch(float x, float y){
 
-    private void startTouch(float x,float y){
         renew();
 
 
@@ -84,10 +91,15 @@ public class Paper  extends View {
 
         mX=x;
         mY=y;
+        path.setLastPoint(x, y);
+        x+=4;
+        path.lineTo(x, y);
+
 
 
     }
     private void moveTouch(float x,float y){
+        justTouch=false;
         float dx=Math.abs(x-mX);
         float dy=Math.abs(y-mY);
         if(dx>=TOLERANCE || dy>=TOLERANCE){
@@ -99,8 +111,6 @@ public class Paper  extends View {
     }
     private  void upTouch(){
         path.lineTo(mX,mY);
-
-
 
 
 
@@ -126,14 +136,18 @@ public class Paper  extends View {
 
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent e){
 
 
+
         float x=e.getX();
         float y=e.getY();
+
         switch (e.getAction()){
             case MotionEvent.ACTION_DOWN:
+
                 startTouch(x,y);
                 invalidate();
                 break;
@@ -145,6 +159,7 @@ public class Paper  extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
+
                 upTouch();
                 invalidate();
                 break;
