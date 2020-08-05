@@ -26,74 +26,70 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/blue"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:background="#0000FF"
 
-        app:layout_constraintBottom_toBottomOf="@+id/Board"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
-
-    <Button
-        android:id="@+id/black"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:background="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/Board"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
-
-    <Button
-        android:id="@+id/green"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:background="#00FF00"
-        app:layout_constraintBottom_toBottomOf="@+id/Board"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
-
-    <Button
-        android:id="@+id/red"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-
-        android:background="#FF0000"
-        app:layout_constraintBottom_toBottomOf="@+id/Board"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="90dp"
-        android:layout_height="35dp"
-        android:background="@color/design_default_color_on_primary"
-        android:text="CLEAR"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/blue"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:background="#0000FF"
+
+            />
+
+        <Button
+            android:id="@+id/black"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:background="#000000" />
+
+        <Button
+            android:id="@+id/green"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:background="#00FF00" />
+
+        <Button
+            android:id="@+id/red"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+
+            android:background="#FF0000" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:background="@color/design_default_color_on_primary"
+            android:text="BACK" />
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/cleanall"
         android:layout_width="40dp"
         android:layout_height="36dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginLeft="200dp"
+
+        android:background="@color/design_default_color_on_secondary"
         android:text="X"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
