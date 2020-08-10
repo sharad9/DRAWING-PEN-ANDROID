@@ -21,6 +21,7 @@ public class Paper  extends View {
     private Paint paint;
     public Path path;
     static int RED,GREEN,BLUE;
+    static float width;
     private float mX,mY;
     private static final float TOLERANCE=5;
     private boolean justTouch=true;
@@ -67,7 +68,10 @@ public class Paper  extends View {
         paint=new Paint();
         path=new Path();
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(7f);
+
+        paint.setStrokeWidth(width);
+
+
 
 
         paint.setStyle(Paint.Style.STROKE);
